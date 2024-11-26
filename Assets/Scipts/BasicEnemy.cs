@@ -10,18 +10,27 @@ public class BasicEnemy : MonoBehaviour
     private int hp = 3;
     public GameObject player;
     private bool canBeHit = false;
+    private Animator animator;
+    private float attackCooldown;
 
     // Start is called before the first frame update
     void Start()
     {
+        animator = GetComponent<Animator>();
+        // InvokeRepeating("Attack", Time.deltaTime, 3);
         
-        InvokeRepeating("Attack", Time.deltaTime, 3);
     }
 
     // Update is called once per frame
     void Update()
     {
-  
+
+        // attack if player is close
+        if(Mathf.Abs(player.transform.position.x - transform.position.x) <= 2 && Time.time - attackCooldown >= 3 && !canBeHit)
+        {
+            attackCooldown = Time.time;
+            StartCoroutine(Attack());
+        }
 
         // enemy dead
         if (hp <= 0)
@@ -37,10 +46,16 @@ public class BasicEnemy : MonoBehaviour
         canBeHit = false;
     }
 
-    private void Attack()
+    IEnumerator Attack()
     {
+        animator.SetTrigger("Prepare");
+        yield return new WaitForSeconds(0.75f);
+        animator.SetTrigger("Attack");
         attackPos = new Vector3(transform.position.x - 1.0f, transform.position.y, transform.position.z);
         Instantiate(attackHitbox, attackPos, transform.rotation, gameObject.transform);
+        yield return new WaitForSeconds(0.2f);
+        animator.SetTrigger("Done Attack");
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
