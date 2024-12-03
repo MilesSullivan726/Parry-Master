@@ -767,7 +767,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 40
-  jumpHeight: 1000
+  jumpHeight: 6000
   parrySuccess: 0
   attackPrefab: {fileID: 2056476527978511552, guid: 2dac299fd77ca3949b2e4779363987a4, type: 3}
   hpCounter: {fileID: 570480938}
