@@ -21,7 +21,10 @@ public class Player : MonoBehaviour
     private float lastAttack = 0;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
-    private bool onGround = true;
+    private bool isAttacking;
+    private bool isDead = false;
+    public GameObject spark;
+
 
     // Start is called before the first frame update
     void Start()
@@ -35,58 +38,62 @@ public class Player : MonoBehaviour
     void Update()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
-        rigidBody.AddForce(Vector2.right * horizontalInput * Time.deltaTime * speed, ForceMode2D.Impulse);
+        
 
         //track direction for spawning of attack hitbox
         if (Input.GetKey(KeyCode.A))
         {
             spriteRenderer.flipX = true;
-            //animator.SetBool("Idle", false);
-            //animator.SetBool("Walk", true);
-            animator.SetTrigger("Walk");
+            
             direction = 0; //left
+            if (!hasJumped)
+            {
+                animator.SetTrigger("Walk");
+            }
         }
 
         else if (Input.GetKey(KeyCode.D))
         {
             spriteRenderer.flipX = false;
-            //animator.SetBool("Idle", false);
-            //animator.SetBool("Walk", true);
-            animator.SetTrigger("Walk");
+            
             direction = 1; //right
+            if (!hasJumped)
+            {
+                animator.SetTrigger("Walk");
+            }
         }
-        else
+        else if(!hasJumped)
         {
             animator.SetTrigger("Idle");
-            //animator.SetBool("Walk", false);
-            //animator.SetBool("Idle", true);
 
         }
 
         //parry
-        if (Input.GetKeyDown(KeyCode.K) && (Time.time - lastParry >= 1f))
+        if (Input.GetKeyDown(KeyCode.K) && (Time.time - lastParry >= 1f) && !hasJumped)
         {
             lastParry = Time.time;
             StartCoroutine(Parry());
         }
 
         //attack
-        if (Input.GetKeyDown(KeyCode.L) && Time.time - lastAttack >= 0.5f)
+        if (Input.GetKeyDown(KeyCode.L) && Time.time - lastAttack >= 0.5f && !hasJumped)
         {
+            
             lastAttack = Time.time;
-            Attack(direction);
+            StartCoroutine(Attack(direction));
         }
 
         //jump
-        if (Input.GetKeyDown(KeyCode.Space) && !hasJumped)
+        if (Input.GetKeyDown(KeyCode.Space) && !hasJumped && !isAttacking && !isDead)
         {
-            onGround = false;
+
             hasJumped = true;
-            
-            rigidBody.AddForce(Vector2.up * Time.deltaTime * jumpHeight, ForceMode2D.Impulse);
+            rigidBody.velocity = Vector2.zero;
+            // rigidBody.AddForce(Vector2.up * Time.deltaTime * jumpHeight, ForceMode2D.Impulse);
+            rigidBody.AddForce(new Vector2(0, jumpHeight), ForceMode2D.Impulse);
         }
 
-        if (!onGround)
+        if (hasJumped)
         {
             animator.SetTrigger("Jump");
         }
@@ -94,9 +101,18 @@ public class Player : MonoBehaviour
         //game over
         if(hp <= 0)
         {
-            Destroy(gameObject);
+            animator.SetTrigger("Dead");
+            isDead = true;
+            rigidBody.constraints = RigidbodyConstraints2D.FreezePositionX;
+            
+            
         }
 
+    }
+
+    private void FixedUpdate()
+    {
+        rigidBody.AddForce(Vector2.right * horizontalInput * Time.deltaTime * speed, ForceMode2D.Impulse);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -104,15 +120,18 @@ public class Player : MonoBehaviour
         // prevent infinite jumps
         if (collision.gameObject.CompareTag("Ground"))
         {
+            animator.SetTrigger("Walk");
             hasJumped = false;
-            onGround = true;
         }
 
 
     }
 
-    private void Attack(int direction)
+    IEnumerator Attack(int direction)
     {
+        isAttacking = true;
+        animator.SetTrigger("Attack");
+
         if (direction == 0) // facing left
         {
             attackPos = new Vector3(transform.position.x - 1.0f, transform.position.y, transform.position.z);
@@ -124,6 +143,12 @@ public class Player : MonoBehaviour
             attackPos = new Vector3(transform.position.x + 1.0f, transform.position.y, transform.position.z);
             Instantiate(attackPrefab, attackPos, transform.rotation, transform);
         }
+
+        rigidBody.constraints = RigidbodyConstraints2D.FreezeAll;
+        yield return new WaitForSeconds(0.4f);
+        rigidBody.constraints = RigidbodyConstraints2D.None;
+        rigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
+        isAttacking = false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -134,14 +159,16 @@ public class Player : MonoBehaviour
             {
                 Debug.Log("parried");
                 //stun attacking enemy so they can be damaged
+                Instantiate(spark, transform);
                 StartCoroutine(collision.transform.parent.GetComponent<BasicEnemy>().Stunned());
             }
 
-            else
+            else if (hp != 0)
             {
                 hp -= 1;
                 hpCounter.text = "HP: " + hp;
                 Debug.Log("hit");
+                StartCoroutine(HitFlash());
             }
         }
     }
@@ -149,9 +176,18 @@ public class Player : MonoBehaviour
     IEnumerator Parry()
     {
         parrySuccess = true;
-        spriteRenderer.enabled = false;
+        animator.SetTrigger("Parry");
+        rigidBody.constraints = RigidbodyConstraints2D.FreezeAll;
         yield return new WaitForSeconds(0.5f);
-        spriteRenderer.enabled = true;
+        rigidBody.constraints = RigidbodyConstraints2D.None;
+        rigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
         parrySuccess = false;
+    }
+
+    IEnumerator HitFlash()
+    {
+        spriteRenderer.color = Color.red;
+        yield return new WaitForSeconds(0.3f);
+        spriteRenderer.color = Color.white;
     }
 }

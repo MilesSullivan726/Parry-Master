@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Despawn : MonoBehaviour
 {
+
+    public float despawnTime = 0.4f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +21,7 @@ public class Despawn : MonoBehaviour
 
     IEnumerator DespawnObject()
     {
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(despawnTime);
         Destroy(gameObject);
     }
 }

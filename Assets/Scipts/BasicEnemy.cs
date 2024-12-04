@@ -8,7 +8,7 @@ public class BasicEnemy : MonoBehaviour
     public GameObject attackHitbox;
     private Vector3 attackPos;
     private int hp = 3;
-    public GameObject player;
+    private GameObject player;
     private bool canBeHit = false;
     private Animator animator;
     private float attackCooldown;
@@ -18,13 +18,16 @@ public class BasicEnemy : MonoBehaviour
     public GameObject stunHalo;
     public GameObject deathExp;
     private float distanceToPlayer;
+    private SpriteRenderer spriteRenderer;
+    private int direction;
 
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
         rigidBody = gameObject.GetComponent<Rigidbody2D>();
-        
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
@@ -33,21 +36,37 @@ public class BasicEnemy : MonoBehaviour
         distanceToPlayer = Mathf.Abs(player.transform.position.x - transform.position.x);
 
         // attack if player is close
-        if (distanceToPlayer <= 2 && Time.time - attackCooldown >= 3 && !canBeHit)
+        if (distanceToPlayer <= 2.5f && Time.time - attackCooldown >= 3 && !canBeHit)
         {
             animator.SetTrigger("Idle");
             attacking = true;
             rigidBody.velocity = Vector2.zero;
             rigidBody.angularVelocity = 0f;
             attackCooldown = Time.time;
-            StartCoroutine(Attack());
+            StartCoroutine(Attack(direction));
         }
 
         else if (distanceToPlayer > 2 && distanceToPlayer < 7 && !attacking && !canBeHit)
         {
             animator.SetTrigger("Walk");
-           rigidBody.AddForce(Vector2.left * Time.deltaTime * speed, ForceMode2D.Impulse);
+            if (player.transform.position.x - transform.position.x < 0)
+            {
+                direction = 0; // left
+                spriteRenderer.flipX = false;
+                rigidBody.AddForce(Vector2.left * Time.deltaTime * speed, ForceMode2D.Impulse);
+            }
+            else
+            {
+                direction = 1; // right
+                spriteRenderer.flipX = true;
+                rigidBody.AddForce(Vector2.right * Time.deltaTime * speed, ForceMode2D.Impulse);
+            }
            
+        }
+
+        else
+        {
+            animator.SetTrigger("Idle");
         }
 
         // enemy dead
@@ -63,18 +82,25 @@ public class BasicEnemy : MonoBehaviour
         animator.SetTrigger("Idle");
         rigidBody.velocity = Vector2.zero;
         rigidBody.angularVelocity = 0f;
-        Instantiate(stunHalo, new Vector2(transform.position.x + 1, transform.position.y + 2), transform.rotation, gameObject.transform);
+        Instantiate(stunHalo, new Vector2(transform.position.x, transform.position.y + 2), transform.rotation, gameObject.transform);
         canBeHit = true;
         yield return new WaitForSeconds(2);
         canBeHit = false;
     }
 
-    IEnumerator Attack()
+    IEnumerator Attack(int direction)
     {
         animator.SetTrigger("Prepare");
         yield return new WaitForSeconds(0.75f);
         animator.SetTrigger("Attack");
-        attackPos = new Vector3(transform.position.x - 1.0f, transform.position.y, transform.position.z);
+        if (direction == 0)
+        {
+            attackPos = new Vector3(transform.position.x - 1.0f, transform.position.y, transform.position.z);
+        }
+        else if (direction == 1)
+        {
+            attackPos = new Vector3(transform.position.x + 2.0f, transform.position.y, transform.position.z);
+        }
         Instantiate(attackHitbox, attackPos, transform.rotation, gameObject.transform);
         yield return new WaitForSeconds(0.2f);
         animator.SetTrigger("Done Attack");
