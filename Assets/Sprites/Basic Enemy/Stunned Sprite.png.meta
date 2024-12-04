@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 982781e926703834aa99d8cf4c5f25c5
+guid: 7fd96eaedf9fb0e429a51aa4ec00c0df
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 28
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -82,6 +82,45 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: VisionOS
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -107,7 +146,20 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: Android
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: tvOS
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -123,13 +175,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Basic Enemy (1)_0
+      name: Stunned Sprite_10
       rect:
         serializedVersion: 2
-        x: 3
-        y: 17
-        width: 53
-        height: 48
+        x: 239
+        y: 24
+        width: 35
+        height: 26
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,20 +189,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: db0c406c97539b44684a48db060c1e1c
-      internalID: -1466376626
+      spriteID: 9c1697145cfe942409a253f8c305a80a
+      internalID: -229220452
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Basic Enemy (1)_1
+      name: Stunned Sprite_0
       rect:
         serializedVersion: 2
-        x: 80
-        y: 17
-        width: 53
-        height: 48
+        x: 14
+        y: 25
+        width: 35
+        height: 26
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -158,20 +210,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4678a0cbd60a00a4b9e48a3833be8377
-      internalID: 1688248341
+      spriteID: 6fcfa86e6ffa79447a5a58bf74d68155
+      internalID: -2034190652
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Basic Enemy (1)_2
+      name: Stunned Sprite_1
       rect:
         serializedVersion: 2
-        x: 153
-        y: 17
-        width: 53
-        height: 48
+        x: 86
+        y: 24
+        width: 35
+        height: 26
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -179,20 +231,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3c4f1aaf49a4d8e418a5dba72df6b7eb
-      internalID: 489080972
+      spriteID: 9f2ae0d7b72966643962ce97102a526b
+      internalID: 1413706448
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Basic Enemy (1)_3
+      name: Stunned Sprite_2
       rect:
         serializedVersion: 2
-        x: 228
-        y: 17
-        width: 53
-        height: 48
+        x: 163
+        y: 23
+        width: 35
+        height: 26
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -200,29 +252,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dcf085a64774f4a4893e52b2667a1837
-      internalID: 636666507
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Basic Enemy (1)_4
-      rect:
-        serializedVersion: 2
-        x: 303
-        y: 17
-        width: 53
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d1f12e2360f0c0d47ab259d237be87df
-      internalID: -1257819209
+      spriteID: 6ed2a1da51de32a47927f03b580621aa
+      internalID: -238421811
       vertices: []
       indices: 
       edges: []
@@ -238,11 +269,23 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Basic Enemy (1)_0: -1466376626
-      Basic Enemy (1)_1: 1688248341
-      Basic Enemy (1)_2: 489080972
-      Basic Enemy (1)_3: 636666507
-      Basic Enemy (1)_4: -1257819209
+      Stunned Sprite_0: -2034190652
+      Stunned Sprite_1: 1413706448
+      Stunned Sprite_10: -229220452
+      Stunned Sprite_11: 251397701
+      Stunned Sprite_12: -2128010203
+      Stunned Sprite_13: -110815693
+      Stunned Sprite_14: 1299015171
+      Stunned Sprite_15: -1300012558
+      Stunned Sprite_16: -667692317
+      Stunned Sprite_2: -238421811
+      Stunned Sprite_3: 1497134086
+      Stunned Sprite_4: 93120557
+      Stunned Sprite_5: 1701681474
+      Stunned Sprite_6: 1518316052
+      Stunned Sprite_7: -410118745
+      Stunned Sprite_8: -876103961
+      Stunned Sprite_9: 1217165298
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

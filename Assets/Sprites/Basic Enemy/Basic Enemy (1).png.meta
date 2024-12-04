@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5b2849fcc241fd7419c9835dc04df5af
+guid: 982781e926703834aa99d8cf4c5f25c5
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 20
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -93,17 +93,95 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: VisionOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: tvOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Skeleton Death_3
+      name: Basic Enemy (1)_0
       rect:
         serializedVersion: 2
-        x: 225
-        y: 11
-        width: 75
-        height: 64
+        x: 3
+        y: 17
+        width: 53
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -111,20 +189,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 47da487995a79984ba638e46822f2171
-      internalID: -220633310
+      spriteID: db0c406c97539b44684a48db060c1e1c
+      internalID: -1466376626
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Skeleton Death_0
+      name: Basic Enemy (1)_1
       rect:
         serializedVersion: 2
-        x: 0
-        y: 11
-        width: 75
-        height: 64
+        x: 80
+        y: 17
+        width: 53
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,20 +210,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ef9c08de0edfdb444a4f96c94f0c433c
-      internalID: -1450474
+      spriteID: 4678a0cbd60a00a4b9e48a3833be8377
+      internalID: 1688248341
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Skeleton Death_1
+      name: Basic Enemy (1)_2
       rect:
         serializedVersion: 2
-        x: 75
-        y: 11
-        width: 75
-        height: 64
+        x: 153
+        y: 17
+        width: 53
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,20 +231,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bbe844fad22a0cd4386cb4511425bde9
-      internalID: 940195284
+      spriteID: 3c4f1aaf49a4d8e418a5dba72df6b7eb
+      internalID: 489080972
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Skeleton Death_2
+      name: Basic Enemy (1)_3
       rect:
         serializedVersion: 2
-        x: 150
-        y: 11
-        width: 75
-        height: 64
+        x: 228
+        y: 17
+        width: 53
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -174,20 +252,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1a0f9e2a4b9128d4c979fde50a3c6422
-      internalID: 898487461
+      spriteID: dcf085a64774f4a4893e52b2667a1837
+      internalID: 636666507
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Skeleton Death_4
+      name: Basic Enemy (1)_4
       rect:
         serializedVersion: 2
-        x: 300
-        y: 11
-        width: 75
-        height: 64
+        x: 303
+        y: 17
+        width: 53
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -195,29 +273,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: be3bb8336ce40da44884a719801b6190
-      internalID: 248507093
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Skeleton Death_5
-      rect:
-        serializedVersion: 2
-        x: 375
-        y: 11
-        width: 75
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1de27a62a4c71824e8c2ca12fd3c62c2
-      internalID: 1609985061
+      spriteID: d1f12e2360f0c0d47ab259d237be87df
+      internalID: -1257819209
       vertices: []
       indices: 
       edges: []
@@ -233,12 +290,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Skeleton Death_0: -1450474
-      Skeleton Death_1: 940195284
-      Skeleton Death_2: 898487461
-      Skeleton Death_3: -220633310
-      Skeleton Death_4: 248507093
-      Skeleton Death_5: 1609985061
+      Basic Enemy (1)_0: -1466376626
+      Basic Enemy (1)_1: 1688248341
+      Basic Enemy (1)_2: 489080972
+      Basic Enemy (1)_3: 636666507
+      Basic Enemy (1)_4: -1257819209
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

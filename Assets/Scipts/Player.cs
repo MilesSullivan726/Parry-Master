@@ -10,7 +10,6 @@ public class Player : MonoBehaviour
     private Rigidbody2D rigidBody;
     public int speed;
     public int jumpHeight;
-    private SpriteRenderer parryTest;
     public bool parrySuccess = false;
     public GameObject attackPrefab;
     private int direction;
@@ -20,12 +19,16 @@ public class Player : MonoBehaviour
     private bool hasJumped = false;
     private float lastParry = 0;
     private float lastAttack = 0;
+    private Animator animator;
+    private SpriteRenderer spriteRenderer;
+    private bool onGround = true;
 
     // Start is called before the first frame update
     void Start()
     {
         rigidBody = gameObject.GetComponent<Rigidbody2D>();
-        parryTest = gameObject.GetComponent<SpriteRenderer>();
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -35,14 +38,29 @@ public class Player : MonoBehaviour
         rigidBody.AddForce(Vector2.right * horizontalInput * Time.deltaTime * speed, ForceMode2D.Impulse);
 
         //track direction for spawning of attack hitbox
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKey(KeyCode.A))
         {
+            spriteRenderer.flipX = true;
+            //animator.SetBool("Idle", false);
+            //animator.SetBool("Walk", true);
+            animator.SetTrigger("Walk");
             direction = 0; //left
         }
 
-        else if (Input.GetKeyDown(KeyCode.D))
+        else if (Input.GetKey(KeyCode.D))
         {
+            spriteRenderer.flipX = false;
+            //animator.SetBool("Idle", false);
+            //animator.SetBool("Walk", true);
+            animator.SetTrigger("Walk");
             direction = 1; //right
+        }
+        else
+        {
+            animator.SetTrigger("Idle");
+            //animator.SetBool("Walk", false);
+            //animator.SetBool("Idle", true);
+
         }
 
         //parry
@@ -62,10 +80,16 @@ public class Player : MonoBehaviour
         //jump
         if (Input.GetKeyDown(KeyCode.Space) && !hasJumped)
         {
+            onGround = false;
             hasJumped = true;
+            
             rigidBody.AddForce(Vector2.up * Time.deltaTime * jumpHeight, ForceMode2D.Impulse);
         }
-        
+
+        if (!onGround)
+        {
+            animator.SetTrigger("Jump");
+        }
 
         //game over
         if(hp <= 0)
@@ -81,7 +105,10 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             hasJumped = false;
+            onGround = true;
         }
+
+
     }
 
     private void Attack(int direction)
@@ -89,13 +116,13 @@ public class Player : MonoBehaviour
         if (direction == 0) // facing left
         {
             attackPos = new Vector3(transform.position.x - 1.0f, transform.position.y, transform.position.z);
-            Instantiate(attackPrefab, attackPos, transform.rotation);
+            Instantiate(attackPrefab, attackPos, transform.rotation, transform);
         }
 
         if (direction == 1) // facing right
         {
             attackPos = new Vector3(transform.position.x + 1.0f, transform.position.y, transform.position.z);
-            Instantiate(attackPrefab, attackPos, transform.rotation);
+            Instantiate(attackPrefab, attackPos, transform.rotation, transform);
         }
     }
 
@@ -122,9 +149,9 @@ public class Player : MonoBehaviour
     IEnumerator Parry()
     {
         parrySuccess = true;
-        parryTest.enabled = false;
+        spriteRenderer.enabled = false;
         yield return new WaitForSeconds(0.5f);
-        parryTest.enabled = true;
+        spriteRenderer.enabled = true;
         parrySuccess = false;
     }
 }
