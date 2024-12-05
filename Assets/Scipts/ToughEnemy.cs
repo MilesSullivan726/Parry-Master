@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasicEnemy : MonoBehaviour
+public class ToughEnemy : MonoBehaviour
 {
 
     public GameObject attackHitbox;
@@ -20,6 +20,8 @@ public class BasicEnemy : MonoBehaviour
     private float distanceToPlayer;
     private SpriteRenderer spriteRenderer;
     private int direction;
+    private int attackChoice;
+    private int stunCount = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -46,7 +48,7 @@ public class BasicEnemy : MonoBehaviour
             StartCoroutine(Attack(direction));
         }
 
-        else if (distanceToPlayer > 2 && distanceToPlayer < 7 && !attacking && !canBeHit)
+        else if (distanceToPlayer > 2.5f && distanceToPlayer < 7 && !attacking && !canBeHit)
         {
             animator.SetTrigger("Walk");
             if (player.transform.position.x - transform.position.x < 0)
@@ -61,7 +63,7 @@ public class BasicEnemy : MonoBehaviour
                 spriteRenderer.flipX = true;
                 rigidBody.AddForce(Vector2.right * Time.deltaTime * speed, ForceMode2D.Impulse);
             }
-           
+
         }
 
         else
@@ -79,20 +81,38 @@ public class BasicEnemy : MonoBehaviour
 
     public IEnumerator Stunned()
     {
-        animator.SetTrigger("Idle");
-        rigidBody.velocity = Vector2.zero;
-        rigidBody.angularVelocity = 0f;
-        Instantiate(stunHalo, new Vector2(transform.position.x, transform.position.y + 2), transform.rotation, gameObject.transform);
-        canBeHit = true;
-        yield return new WaitForSeconds(2);
-        canBeHit = false;
+        stunCount += 1;
+        if (stunCount == 2)
+        {
+            stunCount = 0;
+            animator.SetTrigger("Idle");
+            rigidBody.velocity = Vector2.zero;
+            rigidBody.angularVelocity = 0f;
+            Instantiate(stunHalo, new Vector2(transform.position.x, transform.position.y + 2), transform.rotation, gameObject.transform);
+            canBeHit = true;
+            yield return new WaitForSeconds(2);
+            canBeHit = false;
+        }
     }
 
     IEnumerator Attack(int direction)
     {
-        animator.SetTrigger("Prepare");
-        yield return new WaitForSeconds(0.75f);
-        animator.SetTrigger("Attack");
+        attackChoice = Random.Range(0, 2);
+
+        if (attackChoice == 0)
+        {
+            animator.SetTrigger("Prepare 1");
+            yield return new WaitForSeconds(0.75f);
+            animator.SetTrigger("Attack 1");
+        }
+
+        else if (attackChoice == 1)
+        {
+            animator.SetTrigger("Prepare 2");
+            yield return new WaitForSeconds(0.75f);
+            animator.SetTrigger("Attack 2");
+        }
+
         if (direction == 0)
         {
             attackPos = new Vector3(transform.position.x - 1.0f, transform.position.y, transform.position.z);

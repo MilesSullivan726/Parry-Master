@@ -160,7 +160,15 @@ public class Player : MonoBehaviour
                 Debug.Log("parried");
                 //stun attacking enemy so they can be damaged
                 Instantiate(spark, transform);
-                StartCoroutine(collision.transform.parent.GetComponent<BasicEnemy>().Stunned());
+                if (collision.transform.parent.CompareTag("Basic Enemy"))
+                {
+                    StartCoroutine(collision.transform.parent.GetComponent<BasicEnemy>().Stunned());
+                }
+
+                else if (collision.transform.parent.CompareTag("Tough Enemy"))
+                {
+                    StartCoroutine(collision.transform.parent.GetComponent<ToughEnemy>().Stunned());
+                }
             }
 
             else if (hp != 0)
