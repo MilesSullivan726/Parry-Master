@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ToughEnemy : MonoBehaviour
+public class Boss : MonoBehaviour
 {
 
     public GameObject attackHitbox;
     private Vector3 attackPos;
-    public int hp = 3;
+    public int hp = 10;
     private GameObject player;
     private bool canBeHit = false;
     private Animator animator;
@@ -22,6 +22,7 @@ public class ToughEnemy : MonoBehaviour
     private int direction;
     private int attackChoice;
     private int stunCount = 0;
+    private int numAttacks;
 
     // Start is called before the first frame update
     void Start()
@@ -38,14 +39,15 @@ public class ToughEnemy : MonoBehaviour
         distanceToPlayer = Mathf.Abs(player.transform.position.x - transform.position.x);
 
         // attack if player is close
-        if (distanceToPlayer <= 2.5f && Time.time - attackCooldown >= 3 && !canBeHit)
+        if (distanceToPlayer <= 2.5f && Time.time - attackCooldown >= 3.5f && !canBeHit)
         {
+            numAttacks = Random.Range(2, 4);
             animator.SetTrigger("Idle");
             attacking = true;
             rigidBody.velocity = Vector2.zero;
             rigidBody.angularVelocity = 0f;
             attackCooldown = Time.time;
-            StartCoroutine(Attack(direction));
+            StartCoroutine(Attack(direction, numAttacks));
         }
 
         else if (distanceToPlayer > 2.5f && distanceToPlayer < 7 && !attacking && !canBeHit)
@@ -74,15 +76,25 @@ public class ToughEnemy : MonoBehaviour
         // enemy dead
         if (hp <= 0)
         {
-            Instantiate(deathExp, new Vector2(transform.position.x + 1, transform.position.y), transform.rotation);
-            Destroy(gameObject);
+            StartCoroutine(Die());
         }
+    }
+
+    private IEnumerator Die()
+    {
+        player.GetComponent<Player>().Invincible();
+        canBeHit = true;
+        animator.SetTrigger("Dead");
+        yield return new WaitForSeconds(2.5f);
+        Instantiate(deathExp, new Vector2(transform.position.x + 1, transform.position.y), transform.rotation);
+        Destroy(gameObject);
+
     }
 
     public IEnumerator Stunned()
     {
         stunCount += 1;
-        if (stunCount == 2)
+        if (stunCount == 6)
         {
             stunCount = 0;
             animator.SetTrigger("Idle");
@@ -95,43 +107,57 @@ public class ToughEnemy : MonoBehaviour
         }
     }
 
-    IEnumerator Attack(int direction)
+    IEnumerator Attack(int direction,int numAttacks)
     {
-        attackChoice = Random.Range(0, 2);
+        for (int i = numAttacks; numAttacks != 0; numAttacks -= 1)
+        {
+            if (!canBeHit)
+            {
+                attackChoice = Random.Range(0, 3);
 
-        if (attackChoice == 0)
-        {
-            animator.SetTrigger("Prepare 1");
-            yield return new WaitForSeconds(0.75f);
-            animator.SetTrigger("Attack 1");
-        }
+                if (attackChoice == 0 && !canBeHit)
+                {
+                    animator.SetTrigger("Prepare 1");
+                    yield return new WaitForSeconds(0.75f);
+                    animator.SetTrigger("Attack 1");
+                }
 
-        else if (attackChoice == 1)
-        {
-            animator.SetTrigger("Prepare 2");
-            yield return new WaitForSeconds(0.75f);
-            animator.SetTrigger("Attack 2");
-        }
+                else if (attackChoice == 1 && !canBeHit)
+                {
+                    animator.SetTrigger("Prepare 2");
+                    yield return new WaitForSeconds(0.75f);
+                    animator.SetTrigger("Attack 2");
+                }
 
-        if (direction == 0)
-        {
-            attackPos = new Vector3(transform.position.x - 1.0f, transform.position.y, transform.position.z);
+                else if (attackChoice == 2 && !canBeHit)
+                {
+                    animator.SetTrigger("Prepare 3");
+                    yield return new WaitForSeconds(0.75f);
+                    animator.SetTrigger("Attack 3");
+                }
+
+                if (direction == 0)
+                {
+                    attackPos = new Vector3(transform.position.x - 1.0f, transform.position.y, transform.position.z);
+                }
+                else if (direction == 1)
+                {
+                    attackPos = new Vector3(transform.position.x + 2.0f, transform.position.y, transform.position.z);
+                }
+                Instantiate(attackHitbox, attackPos, transform.rotation, gameObject.transform);
+                yield return new WaitForSeconds(0.2f);
+                animator.SetTrigger("Done Attack");
+                attacking = false;
+                
+            }
         }
-        else if (direction == 1)
-        {
-            attackPos = new Vector3(transform.position.x + 2.0f, transform.position.y, transform.position.z);
-        }
-        Instantiate(attackHitbox, attackPos, transform.rotation, gameObject.transform);
-        yield return new WaitForSeconds(0.2f);
-        animator.SetTrigger("Done Attack");
-        attacking = false;
 
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
-        if (collision.CompareTag("Player Attack") )
+        if (collision.CompareTag("Player Attack") /*&& canBeHit*/)
         {
             StartCoroutine(HitFlash());
             hp -= 1;

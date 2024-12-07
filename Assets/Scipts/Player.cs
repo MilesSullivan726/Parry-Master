@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
     private bool isAttacking;
     private bool isDead = false;
     public GameObject spark;
+    private bool iFrames = false;
 
 
     // Start is called before the first frame update
@@ -69,7 +70,7 @@ public class Player : MonoBehaviour
         }
 
         //parry
-        if (Input.GetKeyDown(KeyCode.K) && (Time.time - lastParry >= 1f) && !hasJumped)
+        if (Input.GetKeyDown(KeyCode.K) && (Time.time - lastParry >= 0.8f) && !hasJumped)
         {
             lastParry = Time.time;
             StartCoroutine(Parry());
@@ -106,6 +107,12 @@ public class Player : MonoBehaviour
             rigidBody.constraints = RigidbodyConstraints2D.FreezePositionX;
             
             
+        }
+
+        if(Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
+        {
+            rigidBody.velocity = Vector2.zero;
+            rigidBody.angularVelocity = 0f;
         }
 
     }
@@ -169,9 +176,14 @@ public class Player : MonoBehaviour
                 {
                     StartCoroutine(collision.transform.parent.GetComponent<ToughEnemy>().Stunned());
                 }
+
+                else if (collision.transform.parent.CompareTag("Boss"))
+                {
+                    StartCoroutine(collision.transform.parent.GetComponent<Boss>().Stunned());
+                }
             }
 
-            else if (hp != 0)
+            else if (hp != 0 && !iFrames)
             {
                 hp -= 1;
                 hpCounter.text = "HP: " + hp;
@@ -179,6 +191,11 @@ public class Player : MonoBehaviour
                 StartCoroutine(HitFlash());
             }
         }
+    }
+
+    public void Invincible()
+    {
+        iFrames = true;
     }
 
     IEnumerator Parry()
@@ -194,8 +211,10 @@ public class Player : MonoBehaviour
 
     IEnumerator HitFlash()
     {
+        iFrames = true;
         spriteRenderer.color = Color.red;
         yield return new WaitForSeconds(0.3f);
         spriteRenderer.color = Color.white;
+        iFrames = false;
     }
 }

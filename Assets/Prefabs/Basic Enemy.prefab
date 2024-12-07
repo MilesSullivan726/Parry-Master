@@ -173,6 +173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackHitbox: {fileID: 1340505716075221477, guid: ae3c113a6ba4a944ca6246e8e691a735, type: 3}
+  hp: 6
   speed: 25
   stunHalo: {fileID: 9175862092836280265, guid: 219e24c11cb90cd488fd5505fc6d0912, type: 3}
   deathExp: {fileID: 4951359747932628083, guid: 1b192d13ff77a55448dba66a4795d7e0, type: 3}

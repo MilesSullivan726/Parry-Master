@@ -9,6 +9,7 @@ TagManager:
   - Ground
   - Tough Enemy
   - Basic Enemy
+  - Boss
   layers:
   - Default
   - TransparentFX

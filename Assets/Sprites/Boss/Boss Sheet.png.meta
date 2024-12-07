@@ -1,0 +1,335 @@
+fileFormatVersion: 2
+guid: 8b6c21e21794e7140a2f6048ce61d477
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 25
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Boss Sheet_0
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 17
+        width: 72
+        height: 108
+      alignment: 9
+      pivot: {x: 0.5941589, y: 0.4710281}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dbdaa63024fe0a345b032c2a7fb2b544
+      internalID: -1197047211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss Sheet_2
+      rect:
+        serializedVersion: 2
+        x: 334
+        y: 17
+        width: 72
+        height: 108
+      alignment: 9
+      pivot: {x: 0.594159, y: 0.4806854}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8cd397879dd4d0f45bf7334c40dd85d2
+      internalID: -1545838228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss Sheet_3
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 17
+        width: 72
+        height: 108
+      alignment: 9
+      pivot: {x: 0.6014023, y: 0.45654213}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e38b4e965464c9f4a8bc785fda63fd14
+      internalID: -1442574716
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss Sheet_4
+      rect:
+        serializedVersion: 2
+        x: 622
+        y: 3
+        width: 84
+        height: 145
+      alignment: 9
+      pivot: {x: 0.64899915, y: 0.35613942}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61b2a44d83b18b541a579cf0ba5a34ea
+      internalID: 1374276136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss Sheet_5
+      rect:
+        serializedVersion: 2
+        x: 766
+        y: 16
+        width: 90
+        height: 124
+      alignment: 9
+      pivot: {x: 0.67962646, y: 0.42429912}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d13df571fbc2eab46a435fdae524506e
+      internalID: -1010327722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss Sheet_6
+      rect:
+        serializedVersion: 2
+        x: 930
+        y: 17
+        width: 106
+        height: 107
+      alignment: 9
+      pivot: {x: 0.4360438, y: 0.4707574}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2dc214329b7d5e547aca07c98b9fa106
+      internalID: 1689539624
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss Sheet_7
+      rect:
+        serializedVersion: 2
+        x: 1050
+        y: 17
+        width: 138
+        height: 107
+      alignment: 9
+      pivot: {x: 0.7872005, y: 0.47563115}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96a8370ea35a1194998fcc5cb2da39b7
+      internalID: 896965081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss Sheet_8
+      rect:
+        serializedVersion: 2
+        x: 1242
+        y: 17
+        width: 104
+        height: 107
+      alignment: 9
+      pivot: {x: 0.3295112, y: 0.4610098}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 376ec48add3ae644491e6f6f7e11b70e
+      internalID: 1972438393
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss Sheet_9
+      rect:
+        serializedVersion: 2
+        x: 1366
+        y: 17
+        width: 129
+        height: 113
+      alignment: 9
+      pivot: {x: 0.77085507, y: 0.45385006}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 010aa96863283924695148492562609d
+      internalID: -2022794358
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss Sheet_10
+      rect:
+        serializedVersion: 2
+        x: 190
+        y: 17
+        width: 74
+        height: 108
+      alignment: 9
+      pivot: {x: 0.5000002, y: 0.47585672}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f61db66a73b4f7640b9b72ed8094dcf3
+      internalID: -1621729748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Boss Sheet_0: -1197047211
+      Boss Sheet_1: -1783782599
+      Boss Sheet_10: -1621729748
+      Boss Sheet_2: -1545838228
+      Boss Sheet_3: -1442574716
+      Boss Sheet_4: 1374276136
+      Boss Sheet_5: -1010327722
+      Boss Sheet_6: 1689539624
+      Boss Sheet_7: 896965081
+      Boss Sheet_8: 1972438393
+      Boss Sheet_9: -2022794358
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

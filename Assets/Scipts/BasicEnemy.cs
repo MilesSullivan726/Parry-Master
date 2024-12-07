@@ -111,7 +111,7 @@ public class BasicEnemy : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
-        if (collision.CompareTag("Player Attack") && canBeHit)
+        if (collision.CompareTag("Player Attack"))
         {
             StartCoroutine(HitFlash());
             hp -= 1;
