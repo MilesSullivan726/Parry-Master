@@ -22,6 +22,7 @@ public class ToughEnemy : MonoBehaviour
     private int direction;
     private int attackChoice;
     private int stunCount = 0;
+    private AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +31,7 @@ public class ToughEnemy : MonoBehaviour
         rigidBody = gameObject.GetComponent<Rigidbody2D>();
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         player = GameObject.FindGameObjectWithTag("Player");
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -101,15 +103,19 @@ public class ToughEnemy : MonoBehaviour
 
         if (attackChoice == 0)
         {
+            audioSource.Play();
             animator.SetTrigger("Prepare 1");
             yield return new WaitForSeconds(0.75f);
+            audioSource.Play();
             animator.SetTrigger("Attack 1");
         }
 
         else if (attackChoice == 1)
         {
             animator.SetTrigger("Prepare 2");
+            audioSource.Play();
             yield return new WaitForSeconds(0.75f);
+            audioSource.Play();
             animator.SetTrigger("Attack 2");
         }
 

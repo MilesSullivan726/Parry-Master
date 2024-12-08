@@ -10,6 +10,7 @@ TagManager:
   - Tough Enemy
   - Basic Enemy
   - Boss
+  - Next Level
   layers:
   - Default
   - TransparentFX

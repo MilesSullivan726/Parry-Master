@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class Player : MonoBehaviour
     public GameObject attackPrefab;
     private int direction;
     private Vector3 attackPos;
-    private int hp = 3;
+    public int hp = 5;
     public TextMeshProUGUI hpCounter;
     private bool hasJumped = false;
     private float lastParry = 0;
@@ -25,6 +26,16 @@ public class Player : MonoBehaviour
     private bool isDead = false;
     public GameObject spark;
     private bool iFrames = false;
+    public Canvas gameOverScreen;
+    private AudioSource audioSource;
+    public AudioClip hurtSFX;
+    public AudioClip attackSFX;
+    public AudioClip parryStartSFX;
+    public AudioClip parrySuccessSFX;
+    public AudioClip jumpSFX;
+    public AudioClip footStep1;
+    public AudioClip footStep2;
+    private float lastStep;
 
 
     // Start is called before the first frame update
@@ -33,6 +44,8 @@ public class Player : MonoBehaviour
         rigidBody = gameObject.GetComponent<Rigidbody2D>();
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
+        
     }
 
     // Update is called once per frame
@@ -44,12 +57,19 @@ public class Player : MonoBehaviour
         //track direction for spawning of attack hitbox
         if (Input.GetKey(KeyCode.A))
         {
+            
             spriteRenderer.flipX = true;
             
             direction = 0; //left
             if (!hasJumped)
             {
                 animator.SetTrigger("Walk");
+            }
+
+            if (Time.time - lastStep > 0.6f && !hasJumped)
+            {
+                lastStep = Time.time;
+                StartCoroutine(FootSteps());
             }
         }
 
@@ -62,6 +82,12 @@ public class Player : MonoBehaviour
             {
                 animator.SetTrigger("Walk");
             }
+
+            if(Time.time - lastStep > 0.6f && !hasJumped)
+            {
+                lastStep = Time.time;
+                StartCoroutine(FootSteps());
+            }
         }
         else if(!hasJumped)
         {
@@ -70,14 +96,14 @@ public class Player : MonoBehaviour
         }
 
         //parry
-        if (Input.GetKeyDown(KeyCode.K) && (Time.time - lastParry >= 0.8f) && !hasJumped)
+        if (Input.GetKeyDown(KeyCode.K) && (Time.time - lastParry >= 0.8f) && !hasJumped && !isDead)
         {
             lastParry = Time.time;
             StartCoroutine(Parry());
         }
 
         //attack
-        if (Input.GetKeyDown(KeyCode.L) && Time.time - lastAttack >= 0.5f && !hasJumped)
+        if (Input.GetKeyDown(KeyCode.L) && Time.time - lastAttack >= 0.5f && !hasJumped && !isDead)
         {
             
             lastAttack = Time.time;
@@ -87,7 +113,7 @@ public class Player : MonoBehaviour
         //jump
         if (Input.GetKeyDown(KeyCode.Space) && !hasJumped && !isAttacking && !isDead)
         {
-
+            audioSource.PlayOneShot(jumpSFX);
             hasJumped = true;
             rigidBody.velocity = Vector2.zero;
             // rigidBody.AddForce(Vector2.up * Time.deltaTime * jumpHeight, ForceMode2D.Impulse);
@@ -102,6 +128,7 @@ public class Player : MonoBehaviour
         //game over
         if(hp <= 0)
         {
+            gameOverScreen.gameObject.SetActive(true);
             animator.SetTrigger("Dead");
             isDead = true;
             rigidBody.constraints = RigidbodyConstraints2D.FreezePositionX;
@@ -113,6 +140,7 @@ public class Player : MonoBehaviour
         {
             rigidBody.velocity = Vector2.zero;
             rigidBody.angularVelocity = 0f;
+            //audioSource.Stop();
         }
 
     }
@@ -120,6 +148,24 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         rigidBody.AddForce(Vector2.right * horizontalInput * Time.deltaTime * speed, ForceMode2D.Impulse);
+    }
+
+    IEnumerator FootSteps()
+    {
+        if (!hasJumped && !isAttacking && !parrySuccess && (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A)))
+        {
+            audioSource.PlayOneShot(footStep1);
+        }
+        yield return new WaitForSeconds(0.3f);
+        if (!hasJumped && !isAttacking && !parrySuccess && (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A)))
+        {
+            audioSource.PlayOneShot(footStep2);
+        }
+    }
+
+    public void RestartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -136,6 +182,7 @@ public class Player : MonoBehaviour
 
     IEnumerator Attack(int direction)
     {
+        audioSource.PlayOneShot(attackSFX);
         isAttacking = true;
         animator.SetTrigger("Attack");
 
@@ -164,6 +211,8 @@ public class Player : MonoBehaviour
         {
             if(parrySuccess == true)
             {
+                audioSource.PlayOneShot(parrySuccessSFX);
+                StartCoroutine(ParryIFrame());
                 Debug.Log("parried");
                 //stun attacking enemy so they can be damaged
                 Instantiate(spark, transform);
@@ -185,12 +234,25 @@ public class Player : MonoBehaviour
 
             else if (hp != 0 && !iFrames)
             {
+                audioSource.PlayOneShot(hurtSFX);
                 hp -= 1;
                 hpCounter.text = "HP: " + hp;
                 Debug.Log("hit");
                 StartCoroutine(HitFlash());
             }
         }
+
+        if(collision.gameObject.CompareTag("Next Level"))
+        {
+            SceneManager.LoadScene("Boss Fight", LoadSceneMode.Single);
+        }
+    }
+
+    IEnumerator ParryIFrame()
+    {
+        iFrames = true;
+        yield return new WaitForSeconds(0.4f);
+        iFrames = false;
     }
 
     public void Invincible()
@@ -200,6 +262,7 @@ public class Player : MonoBehaviour
 
     IEnumerator Parry()
     {
+        audioSource.PlayOneShot(parryStartSFX);
         parrySuccess = true;
         animator.SetTrigger("Parry");
         rigidBody.constraints = RigidbodyConstraints2D.FreezeAll;

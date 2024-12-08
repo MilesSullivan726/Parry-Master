@@ -20,6 +20,7 @@ public class BasicEnemy : MonoBehaviour
     private float distanceToPlayer;
     private SpriteRenderer spriteRenderer;
     private int direction;
+    private AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +29,7 @@ public class BasicEnemy : MonoBehaviour
         rigidBody = gameObject.GetComponent<Rigidbody2D>();
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         player = GameObject.FindGameObjectWithTag("Player");
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -90,9 +92,11 @@ public class BasicEnemy : MonoBehaviour
 
     IEnumerator Attack(int direction)
     {
+        audioSource.Play();
         animator.SetTrigger("Prepare");
         yield return new WaitForSeconds(0.75f);
         animator.SetTrigger("Attack");
+        audioSource.Play();
         if (direction == 0)
         {
             attackPos = new Vector3(transform.position.x - 1.0f, transform.position.y, transform.position.z);

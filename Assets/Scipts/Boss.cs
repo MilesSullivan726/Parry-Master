@@ -23,6 +23,10 @@ public class Boss : MonoBehaviour
     private int attackChoice;
     private int stunCount = 0;
     private int numAttacks;
+    private AudioSource audioSource;
+    public AudioClip attackSFX;
+    public AudioClip deadSFX;
+    private bool isDead = false;
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +35,7 @@ public class Boss : MonoBehaviour
         rigidBody = gameObject.GetComponent<Rigidbody2D>();
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         player = GameObject.FindGameObjectWithTag("Player");
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -74,14 +79,16 @@ public class Boss : MonoBehaviour
         }
 
         // enemy dead
-        if (hp <= 0)
+        if (hp <= 0 && !isDead)
         {
+            isDead = true;
             StartCoroutine(Die());
         }
     }
 
     private IEnumerator Die()
     {
+        audioSource.PlayOneShot(deadSFX);
         player.GetComponent<Player>().Invincible();
         canBeHit = true;
         animator.SetTrigger("Dead");
@@ -117,22 +124,28 @@ public class Boss : MonoBehaviour
 
                 if (attackChoice == 0 && !canBeHit)
                 {
+                    audioSource.PlayOneShot(attackSFX);
                     animator.SetTrigger("Prepare 1");
                     yield return new WaitForSeconds(0.75f);
+                    audioSource.PlayOneShot(attackSFX);
                     animator.SetTrigger("Attack 1");
                 }
 
                 else if (attackChoice == 1 && !canBeHit)
                 {
+                    audioSource.PlayOneShot(attackSFX);
                     animator.SetTrigger("Prepare 2");
                     yield return new WaitForSeconds(0.75f);
+                    audioSource.PlayOneShot(attackSFX);
                     animator.SetTrigger("Attack 2");
                 }
 
                 else if (attackChoice == 2 && !canBeHit)
                 {
+                    audioSource.PlayOneShot(attackSFX);
                     animator.SetTrigger("Prepare 3");
                     yield return new WaitForSeconds(0.75f);
+                    audioSource.PlayOneShot(attackSFX);
                     animator.SetTrigger("Attack 3");
                 }
 
