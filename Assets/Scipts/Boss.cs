@@ -107,7 +107,7 @@ public class Boss : MonoBehaviour
             animator.SetTrigger("Idle");
             rigidBody.velocity = Vector2.zero;
             rigidBody.angularVelocity = 0f;
-            Instantiate(stunHalo, new Vector2(transform.position.x, transform.position.y + 2), transform.rotation, gameObject.transform);
+            Instantiate(stunHalo, new Vector2(transform.position.x, transform.position.y + 3), transform.rotation, gameObject.transform);
             canBeHit = true;
             yield return new WaitForSeconds(2);
             canBeHit = false;

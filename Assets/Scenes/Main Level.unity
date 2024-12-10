@@ -6744,7 +6744,7 @@ TilemapCollider2D:
     serializedVersion: 2
     m_Bits: 4294967295
   m_IsTrigger: 0
-  m_UsedByEffector: 0
+  m_UsedByEffector: 1
   m_UsedByComposite: 1
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
@@ -11907,7 +11907,7 @@ CompositeCollider2D:
     serializedVersion: 2
     m_Bits: 4294967295
   m_IsTrigger: 0
-  m_UsedByEffector: 0
+  m_UsedByEffector: 1
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_GeometryType: 0
@@ -131117,11 +131117,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6379489098420149267, guid: bd32d3940b3420644aec0f2e60f75731, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.31
+      value: -1.36
       objectReference: {fileID: 0}
     - target: {fileID: 6379489098420149267, guid: bd32d3940b3420644aec0f2e60f75731, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.44
+      value: 0.54
       objectReference: {fileID: 0}
     - target: {fileID: 6379489098420149267, guid: bd32d3940b3420644aec0f2e60f75731, type: 3}
       propertyPath: m_LocalPosition.z

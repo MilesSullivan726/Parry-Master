@@ -852,7 +852,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1486148345}
         m_TargetAssemblyTypeName: Player, Assembly-CSharp
         m_MethodName: RestartLevel
         m_Mode: 1
@@ -954,6 +954,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6111884630917960558, guid: bd32d3940b3420644aec0f2e60f75731, type: 3}
   m_PrefabInstance: {fileID: 3930528997366989018}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1486148345 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9134850825790125666, guid: bd32d3940b3420644aec0f2e60f75731, type: 3}
+  m_PrefabInstance: {fileID: 3930528997366989018}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1486148344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe7ddfccd8c223440bb9c28f57cac24d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1487678765
 GameObject:
   m_ObjectHideFlags: 0
