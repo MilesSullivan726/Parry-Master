@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Boss : MonoBehaviour
 {
@@ -94,7 +95,9 @@ public class Boss : MonoBehaviour
         animator.SetTrigger("Dead");
         yield return new WaitForSeconds(2.5f);
         Instantiate(deathExp, new Vector2(transform.position.x + 1, transform.position.y), transform.rotation);
-        Destroy(gameObject);
+        StartCoroutine(player.GetComponent<Player>().Victory());
+        spriteRenderer.enabled = false;
+        
 
     }
 

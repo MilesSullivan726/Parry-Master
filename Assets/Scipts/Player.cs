@@ -36,6 +36,8 @@ public class Player : MonoBehaviour
     public AudioClip footStep1;
     public AudioClip footStep2;
     private float lastStep;
+    public GameObject fadeOut;
+    public GameObject music;
 
 
     // Start is called before the first frame update
@@ -173,17 +175,21 @@ public class Player : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-
-    private void OnCollisionEnter2D(Collision2D collision)
+    
+    public IEnumerator Victory()
     {
-        // prevent infinite jumps
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            animator.SetTrigger("Walk");
-            hasJumped = false;
-        }
+        music.SetActive(false);
+        fadeOut.SetActive(true);
+        yield return new WaitForSeconds(6);
+        SceneManager.LoadScene("Win Screen");
+        
+    }
+    
 
-
+    public void JumpCheck(bool jumped)
+    {
+        hasJumped = jumped;
+        
     }
 
     IEnumerator Attack(int direction)
@@ -213,7 +219,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.CompareTag("Enemy Attack"))
+        if(collision.gameObject.CompareTag("Enemy Attack") && !iFrames)
         {
             if(parrySuccess == true)
             {

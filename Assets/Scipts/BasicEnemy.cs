@@ -21,6 +21,8 @@ public class BasicEnemy : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private int direction;
     private AudioSource audioSource;
+    private bool heightCheck;
+    public float height = 5;
 
     // Start is called before the first frame update
     void Start()
@@ -37,8 +39,17 @@ public class BasicEnemy : MonoBehaviour
     {
         distanceToPlayer = Mathf.Abs(player.transform.position.x - transform.position.x);
 
+        if(Mathf.Abs(player.transform.position.y - transform.position.y) <= height)
+        {
+            heightCheck = true;
+        }
+        else
+        {
+            heightCheck = false;
+        }
+
         // attack if player is close
-        if (distanceToPlayer <= 2.5f && Time.time - attackCooldown >= 3 && !canBeHit)
+        if (distanceToPlayer <= 2.5f && Time.time - attackCooldown >= 3 && !canBeHit && heightCheck)
         {
             animator.SetTrigger("Idle");
             attacking = true;
@@ -48,7 +59,7 @@ public class BasicEnemy : MonoBehaviour
             StartCoroutine(Attack(direction));
         }
 
-        else if (distanceToPlayer > 2 && distanceToPlayer < 7 && !attacking && !canBeHit)
+        else if (distanceToPlayer > 2 && distanceToPlayer < 7 && !attacking && !canBeHit && heightCheck)
         {
             animator.SetTrigger("Walk");
             if (player.transform.position.x - transform.position.x < 0)

@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   despawnTime: 0.4
+  isExplosion: 0
 --- !u!61 &624804912709412678
 BoxCollider2D:
   m_ObjectHideFlags: 0
