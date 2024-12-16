@@ -1,7 +1,9 @@
-Parry Master
+<h1>Parry Master</h1>
+
 Become a parry master as you work your way through a fortress of evil skeletons! Use your trusty shield to deflect incoming attacks, and then strike your enemies down while they're disoriented. Defeat the skeleton lord in the deepest depths of the castle to claim victory, and prove yourself a parrying master!
 
-Controls
+<h2>Controls</h2>
+
 - A and D to move left and right
 
 - Space to jump
@@ -13,7 +15,8 @@ Controls
 How to Play
 Attack enemies with you sword to damage them. When an enemy is about to strike, press K to parry the incoming attack. Parrying an enemy enough times will stun them, allowing you some free hits!
 
-Credits
+<h2>Credits</h2>
+
 - Music by FesliyanStudios (https://www.fesliyanstudios.com/royalty-free-music/downloads-c/8-bit-music/6)
 
 Tracks:
@@ -21,7 +24,7 @@ Tracks:
       - Funny Bit by David Renda
 
       - Funny Bit (Stinger) by David Renda
-
+ 
       - Boss Time by David Renda
 
       - 8 Bit Nostalgia by David Renda
