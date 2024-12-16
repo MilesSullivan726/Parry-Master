@@ -76,4 +76,13 @@ Dec. 8
 - Sound effects added to player and all enemies including boss. Music added to both levels - 1hr
 - 8-bit style font added to UI. Created game over screen with a button to restart scene (this will restart the player at the boss if they have reached it instead of the initial level) - 30 mins
 
+Dec 10
+- Ironed out some bugs, including jumping off of walls, getting stuck midair if parrying while falling, and enemies aggroing from too far - 2hr
+- Added a falling state to the player to prevent unintentional behavior. Also modified the way ground is detected for jumping purposes - 30min
+
+Dec 14
+- Added a title screen, win screen, and level transition. Sprites used in screens were drawn from scratch - 2.5hr
+- Added a boss health bar - 15min
+- Added a fade to white effect upon boss defeat - 30min
+- Fixed an issue where parries where increasing stun counters by two instead of one - 20min
 
