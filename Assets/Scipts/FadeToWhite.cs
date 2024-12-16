@@ -13,12 +13,7 @@ public class FadeToWhite : MonoBehaviour
         StartCoroutine(FadeOut(spriteRenderer));
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    // set alpha of white screen slowly higher to mimic a fade to white
     IEnumerator FadeOut(SpriteRenderer sprite)
     {
         Color tempColor = sprite.color;

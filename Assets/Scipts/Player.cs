@@ -35,6 +35,7 @@ public class Player : MonoBehaviour
     public AudioClip jumpSFX;
     public AudioClip footStep1;
     public AudioClip footStep2;
+    public AudioClip dead;
     private float lastStep;
     public GameObject fadeOut;
     public GameObject music;
@@ -46,8 +47,7 @@ public class Player : MonoBehaviour
         rigidBody = gameObject.GetComponent<Rigidbody2D>();
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
-        audioSource = GetComponent<AudioSource>();
-        
+        audioSource = GetComponent<AudioSource>(); 
     }
 
     // Update is called once per frame
@@ -74,6 +74,7 @@ public class Player : MonoBehaviour
                 animator.SetTrigger("Walk");
             }
 
+            // play footstep sfx if enough time has passed between last step
             if (Time.time - lastStep > 0.6f && !hasJumped)
             {
                 lastStep = Time.time;
@@ -91,12 +92,15 @@ public class Player : MonoBehaviour
                 animator.SetTrigger("Walk");
             }
 
-            if(Time.time - lastStep > 0.6f && !hasJumped)
+            // play footstep sfx if enough time has passed between last step
+            if (Time.time - lastStep > 0.6f && !hasJumped)
             {
                 lastStep = Time.time;
                 StartCoroutine(FootSteps());
             }
         }
+
+        // idle if not jumping or moving
         else if(!hasJumped)
         {
             animator.SetTrigger("Idle");
@@ -124,18 +128,20 @@ public class Player : MonoBehaviour
             audioSource.PlayOneShot(jumpSFX);
             hasJumped = true;
             rigidBody.velocity = Vector2.zero;
-            // rigidBody.AddForce(Vector2.up * Time.deltaTime * jumpHeight, ForceMode2D.Impulse);
             rigidBody.AddForce(new Vector2(0, jumpHeight), ForceMode2D.Impulse);
         }
 
+        // ensures jump animation plays when falling
         if (hasJumped)
         {
             animator.SetTrigger("Jump");
         }
 
         //game over
-        if(hp <= 0)
+        if(hp <= 0 && !isDead)
         {
+            audioSource.PlayOneShot(dead);
+            Destroy(music);
             gameOverScreen.gameObject.SetActive(true);
             animator.SetTrigger("Dead");
             isDead = true;
@@ -144,20 +150,22 @@ public class Player : MonoBehaviour
             
         }
 
+        // halts all player movement when A or D is released to prevent floatiness and make controls snappier
         if(Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
         {
             rigidBody.velocity = Vector2.zero;
             rigidBody.angularVelocity = 0f;
-            //audioSource.Stop();
         }
 
     }
 
+    // move player based on input
     private void FixedUpdate()
     {
         rigidBody.AddForce(Vector2.right * horizontalInput * Time.deltaTime * speed, ForceMode2D.Impulse);
     }
 
+    // play footstep sfx on certain loop. Prevent footstep sfx when jumping
     IEnumerator FootSteps()
     {
         if (!hasJumped && !isAttacking && !parrySuccess && (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A)))
@@ -165,6 +173,7 @@ public class Player : MonoBehaviour
             audioSource.PlayOneShot(footStep1);
         }
         yield return new WaitForSeconds(0.3f);
+
         if (!hasJumped && !isAttacking && !parrySuccess && (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A)))
         {
             audioSource.PlayOneShot(footStep2);
@@ -176,22 +185,23 @@ public class Player : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     
+    // victory fanfare once boss is defeated
     public IEnumerator Victory()
     {
         music.SetActive(false);
+        yield return new WaitForSeconds(1.5f);
         fadeOut.SetActive(true);
-        yield return new WaitForSeconds(6);
-        SceneManager.LoadScene("Win Screen");
-        
+        yield return new WaitForSeconds(5);
+        SceneManager.LoadScene("Win Screen");       
     }
     
-
+    // used in conjunction with child object to detect when the player can jump again
     public void JumpCheck(bool jumped)
     {
-        hasJumped = jumped;
-        
+        hasJumped = jumped;     
     }
 
+    // attack in current direction by playing animation and spawning hitbox
     IEnumerator Attack(int direction)
     {
         audioSource.PlayOneShot(attackSFX);
@@ -210,6 +220,7 @@ public class Player : MonoBehaviour
             Instantiate(attackPrefab, attackPos, transform.rotation, transform);
         }
 
+        // prevent player movement while attacking
         rigidBody.constraints = RigidbodyConstraints2D.FreezeAll;
         yield return new WaitForSeconds(0.4f);
         rigidBody.constraints = RigidbodyConstraints2D.None;
@@ -221,11 +232,13 @@ public class Player : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Enemy Attack") && !iFrames)
         {
+
+            // if the player is parrying and is hit, increments stun counter of attacking enemy
             if(parrySuccess == true)
             {
                 audioSource.PlayOneShot(parrySuccessSFX);
                 StartCoroutine(ParryIFrame());
-                Debug.Log("parried");
+
                 //stun attacking enemy so they can be damaged
                 Instantiate(spark, transform);
                 if (collision.transform.parent.CompareTag("Basic Enemy"))
@@ -244,22 +257,23 @@ public class Player : MonoBehaviour
                 }
             }
 
+            // take damage if hit when not parrying or otherwise invulnerable
             else if (hp != 0 && !iFrames)
             {
                 audioSource.PlayOneShot(hurtSFX);
                 hp -= 1;
                 hpCounter.text = "HP: " + hp;
-                Debug.Log("hit");
                 StartCoroutine(HitFlash());
             }
         }
 
         if(collision.gameObject.CompareTag("Next Level"))
         {
-            SceneManager.LoadScene("Boss Fight", LoadSceneMode.Single);
+            SceneManager.LoadScene("Level Transition", LoadSceneMode.Single);
         }
     }
 
+    // iframes prevent extra damage from a single attack
     IEnumerator ParryIFrame()
     {
         iFrames = true;
@@ -267,11 +281,13 @@ public class Player : MonoBehaviour
         iFrames = false;
     }
 
+    // triggered when boss dies to prevent player death from lingering boss attack hitbox
     public void Invincible()
     {
         iFrames = true;
     }
 
+    // activates and closes the parry window which will stun enemies when attacked during duration
     IEnumerator Parry()
     {
         audioSource.PlayOneShot(parryStartSFX);
@@ -284,6 +300,7 @@ public class Player : MonoBehaviour
         parrySuccess = false;
     }
 
+    // flash red when damaged
     IEnumerator HitFlash()
     {
         iFrames = true;

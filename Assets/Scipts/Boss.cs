@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Boss : MonoBehaviour
 {
@@ -28,6 +29,7 @@ public class Boss : MonoBehaviour
     public AudioClip attackSFX;
     public AudioClip deadSFX;
     private bool isDead = false;
+    public Slider hpBar;
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +44,7 @@ public class Boss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // determine distance to player
         distanceToPlayer = Mathf.Abs(player.transform.position.x - transform.position.x);
 
         // attack if player is close
@@ -56,6 +59,7 @@ public class Boss : MonoBehaviour
             StartCoroutine(Attack(direction, numAttacks));
         }
 
+        // approach player if they are in appropriate range
         else if (distanceToPlayer > 2.5f && distanceToPlayer < 7 && !attacking && !canBeHit)
         {
             animator.SetTrigger("Walk");
@@ -74,18 +78,20 @@ public class Boss : MonoBehaviour
 
         }
 
+        // if player is too far, idle
         else
         {
             animator.SetTrigger("Idle");
         }
 
-        // enemy dead
+        // boss dead
         if (hp <= 0 && !isDead)
         {
             isDead = true;
             StartCoroutine(Die());
         }
     }
+
 
     private IEnumerator Die()
     {
@@ -97,14 +103,12 @@ public class Boss : MonoBehaviour
         Instantiate(deathExp, new Vector2(transform.position.x + 1, transform.position.y), transform.rotation);
         StartCoroutine(player.GetComponent<Player>().Victory());
         spriteRenderer.enabled = false;
-        
-
     }
 
     public IEnumerator Stunned()
     {
         stunCount += 1;
-        if (stunCount == 6)
+        if (stunCount == 6) // checks if parried 6 times, if so then stunned
         {
             stunCount = 0;
             animator.SetTrigger("Idle");
@@ -117,6 +121,7 @@ public class Boss : MonoBehaviour
         }
     }
 
+    // boss has three attack options and can attack 2 or 3 times in a combo. Each attack in combo is randomly chosen
     IEnumerator Attack(int direction,int numAttacks)
     {
         for (int i = numAttacks; numAttacks != 0; numAttacks -= 1)
@@ -173,14 +178,15 @@ public class Boss : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
-        if (collision.CompareTag("Player Attack") /*&& canBeHit*/)
+        if (collision.CompareTag("Player Attack"))
         {
             StartCoroutine(HitFlash());
             hp -= 1;
-            Debug.Log("Enemy HP: " + hp);
+            hpBar.value -= 0.05f; // decrease hp bar UI element by 1/20th
         }
     }
 
+    // flash red when hit
     IEnumerator HitFlash()
     {
         spriteRenderer.color = Color.red;

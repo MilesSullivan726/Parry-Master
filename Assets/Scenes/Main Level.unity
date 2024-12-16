@@ -131409,11 +131409,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6379489098420149267, guid: bd32d3940b3420644aec0f2e60f75731, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.34
+      value: -1.19
       objectReference: {fileID: 0}
     - target: {fileID: 6379489098420149267, guid: bd32d3940b3420644aec0f2e60f75731, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.43
+      value: 0.45
       objectReference: {fileID: 0}
     - target: {fileID: 6379489098420149267, guid: bd32d3940b3420644aec0f2e60f75731, type: 3}
       propertyPath: m_LocalPosition.z
@@ -131447,6 +131447,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9134850825790125666, guid: bd32d3940b3420644aec0f2e60f75731, type: 3}
+      propertyPath: dead
+      value: 
+      objectReference: {fileID: 8300000, guid: f16470db0c2958842a65972e1ef3ad91, type: 3}
+    - target: {fileID: 9134850825790125666, guid: bd32d3940b3420644aec0f2e60f75731, type: 3}
+      propertyPath: music
+      value: 
+      objectReference: {fileID: 11202752}
     - target: {fileID: 9134850825790125666, guid: bd32d3940b3420644aec0f2e60f75731, type: 3}
       propertyPath: hpCounter
       value: 

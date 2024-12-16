@@ -39,8 +39,10 @@ public class ToughEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // determine distance to player
         distanceToPlayer = Mathf.Abs(player.transform.position.x - transform.position.x);
 
+        // check if player is within acceptable height range to prevent action when player is far above or below
         if (Mathf.Abs(player.transform.position.y - transform.position.y) <= height)
         {
             heightCheck = true;
@@ -61,6 +63,7 @@ public class ToughEnemy : MonoBehaviour
             StartCoroutine(Attack(direction));
         }
 
+        // approach player if within appropriate range
         else if (distanceToPlayer > 2.5f && distanceToPlayer < 7 && !attacking && !canBeHit && heightCheck)
         {
             animator.SetTrigger("Walk");
@@ -79,6 +82,7 @@ public class ToughEnemy : MonoBehaviour
 
         }
 
+        // if out of range then idle
         else
         {
             animator.SetTrigger("Idle");
@@ -95,7 +99,7 @@ public class ToughEnemy : MonoBehaviour
     public IEnumerator Stunned()
     {
         stunCount += 1;
-        if (stunCount == 2)
+        if (stunCount == 2) // checks if enemy has been parried twice to stun
         {
             stunCount = 0;
             animator.SetTrigger("Idle");
@@ -108,6 +112,7 @@ public class ToughEnemy : MonoBehaviour
         }
     }
 
+    // this enemy has 2 attacks it chooses from randomly
     IEnumerator Attack(int direction)
     {
         attackChoice = Random.Range(0, 2);
@@ -152,10 +157,10 @@ public class ToughEnemy : MonoBehaviour
         {
             StartCoroutine(HitFlash());
             hp -= 1;
-            Debug.Log("Enemy HP: " + hp);
         }
     }
 
+    // flash red when hit
     IEnumerator HitFlash()
     {
         spriteRenderer.color = Color.red;

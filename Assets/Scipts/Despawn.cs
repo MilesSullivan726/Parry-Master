@@ -9,6 +9,8 @@ public class Despawn : MonoBehaviour
     public bool isExplosion = false;
     private AudioSource audioSource;
 
+    // script is used for both explosion effects from deaths and hitboxes to despawn after short delay
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,12 +22,6 @@ public class Despawn : MonoBehaviour
         {
             audioSource.Play();
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     IEnumerator DespawnObject()

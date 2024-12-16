@@ -37,8 +37,10 @@ public class BasicEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // determine distance to player
         distanceToPlayer = Mathf.Abs(player.transform.position.x - transform.position.x);
 
+        // checks if enemy is within appropriate height range of player so enemy does not move or act when player far above or below
         if(Mathf.Abs(player.transform.position.y - transform.position.y) <= height)
         {
             heightCheck = true;
@@ -59,6 +61,7 @@ public class BasicEnemy : MonoBehaviour
             StartCoroutine(Attack(direction));
         }
 
+        // approach player if within appropriate range
         else if (distanceToPlayer > 2 && distanceToPlayer < 7 && !attacking && !canBeHit && heightCheck)
         {
             animator.SetTrigger("Walk");
@@ -77,6 +80,7 @@ public class BasicEnemy : MonoBehaviour
            
         }
 
+        // idle if player is too far
         else
         {
             animator.SetTrigger("Idle");
@@ -90,6 +94,7 @@ public class BasicEnemy : MonoBehaviour
         }
     }
 
+    // become stunned momentarily, allowing for a damage window
     public IEnumerator Stunned()
     {
         animator.SetTrigger("Idle");
@@ -101,6 +106,7 @@ public class BasicEnemy : MonoBehaviour
         canBeHit = false;
     }
 
+    // attack in appropiate direction by playing animation and spawning hitbox
     IEnumerator Attack(int direction)
     {
         audioSource.Play();
@@ -123,6 +129,7 @@ public class BasicEnemy : MonoBehaviour
 
     }
 
+    // take damage on hit
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
@@ -130,10 +137,10 @@ public class BasicEnemy : MonoBehaviour
         {
             StartCoroutine(HitFlash());
             hp -= 1;
-            Debug.Log("Enemy HP: " + hp);
         }
     }
 
+    // flash red when hit
     IEnumerator HitFlash()
     {
         spriteRenderer.color = Color.red;
